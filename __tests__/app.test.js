@@ -42,10 +42,11 @@ describe('bitly-clone routes', () => {
       
     postedUrl = postResponse.body;
 
-    const result = await request(app)
-      .get(`/api/v1/shrink/${postedUrl.id}`);
-      
-    expect(result.headers.location).toEqual('https://extralongaddress.com/why/would/this/be/this/long');
+    return request(app)
+      .get(`/api/v1/shrink/${postedUrl.id}`)
+      .then(res => {
+        expect(res.headers.location).toEqual('https://extralongaddress.com/why/would/this/be/this/long');
+      });
   });
 });
 
